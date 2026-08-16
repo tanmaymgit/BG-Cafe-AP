@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The After Party | BG Rooftop</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #050505;
+            color: #ffffff;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated Background Particles */
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            background: radial-gradient(circle at center, #1a0b2e 0%, #000000 100%);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            text-align: center;
+            z-index: 10;
+            position: relative;
+        }
+
+        /* Floating Poster Animation */
+        .poster-container img {
+            width: 100%;
+            max-width: 350px;
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(102, 252, 241, 0.4);
+            animation: float 4s ease-in-out infinite;
+            margin-bottom: 30px;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, #ff00cc, #3333ff, #00ffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .venue-text {
+            color: #aaaaaa;
+            font-size: 1rem;
+            margin-bottom: 40px;
+            line-height: 1.5;
+        }
+
+        /* Glassmorphism Cards */
+        .features {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            width: 30%;
+            min-width: 150px;
+            transition: transform 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border: 1px solid rgba(102, 252, 241, 0.5);
+        }
+
+        .glass-card h3 {
+            color: #66fcf1;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .glass-card p {
+            font-size: 0.9rem;
+            color: #cccccc;
+        }
+
+        .price {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            margin-bottom: 30px;
+        }
+
+        /* Neon Pulse Button */
+        .buy-btn {
+            background: transparent;
+            color: #66fcf1;
+            font-size: 1.5rem;
+            font-weight: bold;
+            padding: 15px 40px;
+            border: 2px solid #66fcf1;
+            border-radius: 50px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(102, 252, 241, 0.3), inset 0 0 10px rgba(102, 252, 241, 0.1);
+        }
+
+        .buy-btn:hover {
+            background: #66fcf1;
+            color: #000000;
+            box-shadow: 0 0 30px rgba(102, 252, 241, 0.8), inset 0 0 20px rgba(102, 252, 241, 0.5);
+        }
+
+        /* Success Modal */
+        #success-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(10, 25, 47, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid #66fcf1;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            z-index: 100;
+            box-shadow: 0 0 50px rgba(102, 252, 241, 0.2);
+            width: 90%;
+            max-width: 500px;
+        }
+
+        #success-modal h2 {
+            color: #4CAF50;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+
+        #ticket-code {
+            display: inline-block;
+            background: #112240;
+            color: #66fcf1;
+            padding: 15px 25px;
+            font-size: 1.5rem;
+            border-radius: 10px;
+            margin: 20px 0;
+            letter-spacing: 2px;
+            border: 1px dashed #66fcf1;
+        }
+
+        #overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 99;
+        }
+        
+        /* Simple particle CSS for background */
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(102, 252, 241, 0.5);
+            animation: drift linear infinite;
+        }
+        @keyframes drift {
+            from { transform: translateY(100vh); opacity: 0; }
+            50% { opacity: 1; }
+            to { transform: translateY(-100px); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background-animation" id="bg-particles"></div>
+
+    <div class="container">
+        <div class="poster-container">
+            <!-- Ensure your image is named ticket.png and uploaded to GitHub -->
+            <img src="ticket.png" alt="The After Party Ticket">
+        </div>
+
+        <h1>The After Party</h1>
+        <p class="venue-text">
+            <strong>BG ROOFTOP CAFE</strong><br>
+            Safiyabad Road, Opp. Khemo Devi Public School<br>
+            Narela, Delhi - 110040
+        </p>
+
+        <div class="features">
+            <div class="glass-card">
+                <h3>🎧 Music</h3>
+                <p>Live DJ sets, heavy bass, and non-stop club hits till dawn.</p>
+            </div>
+            <div class="glass-card">
+                <h3>🍔 Food</h3>
+                <p>Gourmet snacks, street food delights, and appetizers.</p>
+            </div>
+            <div class="glass-card">
+                <h3>🍹 Drinks</h3>
+                <p>Full bar access, craft cocktails, and refreshing beverages.</p>
+            </div>
+        </div>
+
+        <div class="price">₹1200 <span style="font-size: 1rem; color: #888; font-weight: normal;">/ PERSON</span></div>
+
+        <button id="rzp-button1" class="buy-btn">Get Your Ticket</button>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="overlay"></div>
+    <div id="success-modal">
+        <h2>🎉 Payment Successful!</h2>
+        <p>You're on the list. Screenshot your unique entry code below and show it at the gate.</p>
+        <div id="ticket-code"></div>
+        <p style="color: #888; font-size: 0.9rem;">An email confirmation has also been sent to you.</p>
+    </div>
+
+    <!-- Particle Script -->
+    <script>
+        const bg = document.getElementById('bg-particles');
+        for(let i=0; i<30; i++) {
+            let p = document.createElement('div');
+            p.className = 'particle';
+            let size = Math.random() * 5 + 2;
+            p.style.width = size + 'px';
+            p.style.height = size + 'px';
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.animationDuration = (Math.random() * 10 + 5) + 's';
+            p.style.animationDelay = Math.random() * 5 + 's';
+            bg.appendChild(p);
+        }
+    </script>
+
+    <!-- Razorpay Checkout Script -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+        var options = {
+            "key": "YOUR_RAZORPAY_TEST_KEY_HERE", // Replace with your Test Key
+            "amount": "120000", // Amount in paise (1200 * 100)
+            "currency": "INR",
+            "name": "The After Party",
+            "description": "1x Entry Ticket",
+            "theme": {
+                "color": "#ff00cc" // Matches the gradient
+            },
+            "handler": function (response){
+                // Show custom success modal
+                document.getElementById('overlay').style.display = 'block';
+                document.getElementById('success-modal').style.display = 'block';
+                
+                // Display the dynamic Razorpay Payment ID as the Ticket Code
+                document.getElementById('ticket-code').innerText = response.razorpay_payment_id;
+            },
+            "prefill": {
+                "name": "", 
+                "email": "",
+                "contact": ""
+            }
+        };
+        var rzp1 = new Razorpay(options);
+        document.getElementById('rzp-button1').onclick = function(e){
+            rzp1.open();
+            e.preventDefault();
+        }
+    </script>
+</body>
+</html>
