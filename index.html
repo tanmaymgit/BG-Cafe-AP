@@ -369,7 +369,7 @@
             bg.appendChild(p);
         }
 
-        // Countdown Timer Logic (Set to 7 days from now by default)
+        // Countdown Timer Logic
         const partyDate = new Date("December 27, 2026 14:00:00").getTime();
         setInterval(() => {
             const now = new Date().getTime();
@@ -390,7 +390,7 @@
             document.getElementById('display-price').innerText = quantity * basePrice;
         }
 
-        // Razorpay Checkout
+// Razorpay Checkout
         document.getElementById('rzp-button1').onclick = function(e){
             var options = {
                 "key": "YOUR_RAZORPAY_TEST_KEY_HERE",
@@ -402,13 +402,22 @@
                 "handler": function (response){
                     document.getElementById('overlay').style.display = 'block';
                     document.getElementById('success-modal').style.display = 'block';
-                    document.getElementById('ticket-code').innerText = response.razorpay_payment_id;
+                    
+                    // Generate separate codes for each ticket
+                    let ticketCodesHTML = '';
+                    const baseId = response.razorpay_payment_id;
+                    
+                    for(let i = 1; i <= quantity; i++) {
+                        ticketCodesHTML += `<div style="margin: 6px 0; font-size: 1.1rem; color: #66fcf1;">Pass #${i}: <strong>${baseId}-T${i}</strong></div>`;
+                    }
+                    
+                    document.getElementById('ticket-code').innerHTML = ticketCodesHTML;
                 }
             };
             var rzp = new Razorpay(options);
             rzp.open();
             e.preventDefault();
-        }
+        };
     </script>
 </body>
 </html>
