@@ -273,6 +273,75 @@
             50% { opacity: 1; }
             to { transform: translateY(-100px); opacity: 0; }
         }
+        /* Past Memories Image Slider */
+        .memories-section {
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            overflow: hidden;
+            width: 100vw;
+            position: relative;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+        }
+
+        .memories-section h2 {
+            font-size: 2rem;
+            color: #ff00cc;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .slider {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 20px 0;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+            overflow: hidden;
+            white-space: nowrap;
+            display: flex;
+        }
+
+        .slide-track {
+            display: flex;
+            gap: 20px;
+            width: max-content;
+            animation: scroll 20s linear infinite;
+        }
+
+        /* Pause animation when user hovers */
+        .slider:hover .slide-track {
+            animation-play-state: paused;
+        }
+
+        .slide {
+            width: 250px;
+            height: 180px;
+            flex-shrink: 0;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(102, 252, 241, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .slide img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(102, 252, 241, 0.6);
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); } 
+            /* Moves halfway, so we duplicate images for seamless loop */
+        }
     </style>
 </head>
 <body>
@@ -325,6 +394,26 @@
         <div class="price">₹<span id="display-price">1200</span></div>
 
         <button id="rzp-button1" class="buy-btn">Get Passes</button>
+
+        <!-- Past Memories Section -->
+        <div class="memories-section">
+            <h2>📸 Vibe Check: Past Parties</h2>
+            <div class="slider">
+                <div class="slide-track">
+                    <!-- Original Images -->
+                    <div class="slide"><img src="past1.jpg" alt="Party Vibe 1"></div>
+                    <div class="slide"><img src="past2.jpg" alt="Party Vibe 2"></div>
+                    <div class="slide"><img src="past3.jpg" alt="Party Vibe 3"></div>
+                    <div class="slide"><img src="past4.jpg" alt="Party Vibe 4"></div>
+                    
+                    <!-- Duplicate Images (Zaroori hai seamless loop (bina ruke chalne) ke liye) -->
+                    <div class="slide"><img src="past1.jpg" alt="Party Vibe 1"></div>
+                    <div class="slide"><img src="past2.jpg" alt="Party Vibe 2"></div>
+                    <div class="slide"><img src="past3.jpg" alt="Party Vibe 3"></div>
+                    <div class="slide"><img src="past4.jpg" alt="Party Vibe 4"></div>
+                </div>
+            </div>
+        </div>
 
         <!-- FAQ Dropdowns -->
         <div class="faq-section">
